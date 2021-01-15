@@ -1,0 +1,11 @@
+.home__heading {
+    display: block !important;
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 10px;
+}
+
+.register {
+    width: 400px;
+    margin: 10px auto;
+}
