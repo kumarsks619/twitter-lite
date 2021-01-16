@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { Comment, Divider, Form, Header, Item, Loader } from 'semantic-ui-react'
+import { Comment, Divider, Form, Header, Item, Placeholder, Grid } from 'semantic-ui-react'
 import moment from 'moment'
 
 import { CREATE_COMMENT_QUERY, FETCH_POST_QUERY } from '../../utils/Query'
@@ -35,7 +35,45 @@ function SinglePost(props) {
 
 
     return (
-        loading ? <Loader active inline="centered" style={{ marginTop: 20 }}>Loading Tweet</Loader> : (
+        loading ? (
+            <Grid style={{ marginTop: 20 }}>
+                <Grid.Row>
+                    <Grid.Column width={3}>
+                        <Placeholder>
+                            <Placeholder.Image style={{ height: 175, width: 150 }} />
+                        </Placeholder>
+                    </Grid.Column>
+                    <Grid.Column width={9}>
+                        <Placeholder>
+                            <Placeholder.Header>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                            </Placeholder.Header>
+                            <Placeholder.Paragraph>
+                                <Placeholder.Line length="full" />
+                                <Placeholder.Line length="long" />
+                                <Placeholder.Line length="medium" />
+                            </Placeholder.Paragraph>
+                        </Placeholder>
+                    </Grid.Column> 
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={3}></Grid.Column>
+                    <Grid.Column width={9}>
+                        {
+                            new Array(5).fill(0).map((_, index) => (
+                                <Placeholder key={`${new Date().toISOString()}${index}`}>
+                                    <Placeholder.Header image>
+                                        <Placeholder.Line />
+                                        <Placeholder.Line />
+                                    </Placeholder.Header>
+                                </Placeholder>
+                            ))
+                        }
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        ) : (
             <Item.Group relaxed>
                 <Item>
                     <Item.Image src={`https://avatars.dicebear.com/api/human/${username}.svg`} />
@@ -49,7 +87,7 @@ function SinglePost(props) {
                             <CommentButton commentsCount={commentsCount} handleOnClick={() => commentInputRef.current.focus()} />
                             { context.user && context.user.username === username && <DeleteButton postID={id} redirect={true} /> }
                         </Item.Extra>
-                        <Comment.Group>
+                        <Comment.Group style={{ marginBottom: 50 }}>
                             <Header as="h3" dividing>
                                 Comments
                             </Header>

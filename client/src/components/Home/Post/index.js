@@ -7,20 +7,23 @@ import { AuthContext } from '../../../utils/Context/auth'
 import LikeButton from './LikeButton'
 import DeleteButton from './DeleteButton'
 import CommentButton from './CommentButton'
+import MyPopup from '../../../utils/UtilComponents/MyPopup'
 
  
-function Post({ post: { id, username, body, createdAt, likesCount, likes, commentsCount, comments }}) {
+function Post({ post: { id, username, body, createdAt, likesCount, likes, commentsCount }}) {
 
     const context = useContext(AuthContext)
     
     return (
         <Card fluid>
             <Card.Content as={Link} to={`/posts/${id}`}>
-                <Image
-                    floated="right"
-                    size="mini"
-                    src={`https://avatars.dicebear.com/api/human/${username}.svg`}
-                />
+                <MyPopup header={username} content={`Joined ${moment(createdAt).from()}`}>
+                    <Image
+                        floated="right"
+                        size="mini"
+                        src={`https://avatars.dicebear.com/api/human/${username}.svg`}
+                    />
+                </MyPopup>
                 <Card.Header>{username}</Card.Header>
                 <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
                 <Card.Description>{body}</Card.Description>
