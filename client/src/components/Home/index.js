@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useQuery } from '@apollo/client'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Loader, Transition } from 'semantic-ui-react'
 
 import Post from './Post'
 import { AuthContext } from '../../utils/Context/auth'
@@ -15,24 +15,29 @@ function Home() {
 
     return (
         <Grid columns={3}>
-            <Grid.Row className="home__heading">
-                <h1>Tweets</h1>
-            </Grid.Row>
             {
-                context.user && (
+                context.user ? (
                     <Grid.Row>
                         <PostForm />
+                    </Grid.Row>
+                ) : (
+                    <Grid.Row>
+                        <h1 className="home__heading">Tweets</h1>
                     </Grid.Row>
                 )
             }
             <Grid.Row>
                 {
-                    loading ? <h1>Loading tweets...</h1> : (
-                        data?.getPosts.map(post => (
-                            <Grid.Column key={post.id} style={{ marginBottom: '30px' }}>
-                                <Post post={post} />
-                            </Grid.Column>
-                        ))
+                    loading ? <Loader active inline="centered">Loading Tweets...</Loader> : (
+                        <Transition.Group>
+                            {
+                                data?.getPosts.map(post => (
+                                    <Grid.Column key={post.id} style={{ marginBottom: '30px' }}>
+                                        <Post post={post} />
+                                    </Grid.Column>
+                                ))
+                            }
+                        </Transition.Group>
                     )
                 }
             </Grid.Row>

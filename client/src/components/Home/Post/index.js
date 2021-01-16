@@ -1,18 +1,17 @@
-import React from 'react'
-import { Card, Image, Button, Label, Icon } from 'semantic-ui-react'
+import React, { useContext } from 'react'
+import { Card, Image } from 'semantic-ui-react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+
+import { AuthContext } from '../../../utils/Context/auth'
+import LikeButton from './LikeButton'
+import DeleteButton from './DeleteButton'
+import CommentButton from './CommentButton'
 
  
 function Post({ post: { id, username, body, createdAt, likesCount, likes, commentsCount, comments }}) {
 
-    const handleLikeToggle = () => {
-
-    }
-
-    const handleComment = () => {
-        
-    }
+    const context = useContext(AuthContext)
     
     return (
         <Card fluid>
@@ -27,22 +26,9 @@ function Post({ post: { id, username, body, createdAt, likesCount, likes, commen
                 <Card.Description>{body}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button as="div" labelPosition="right" onClick={handleLikeToggle}>
-                    <Button color="teal" basic>
-                        <Icon name="heart" />
-                    </Button>
-                    <Label basic color="teal" pointing="left">
-                        {likesCount}
-                    </Label>
-                </Button>
-                <Button as="div" labelPosition="right" onClick={handleComment}>
-                    <Button color="blue" basic>
-                        <Icon name="comments" />
-                    </Button>
-                    <Label basic color="blue" pointing="left">
-                        {commentsCount}
-                    </Label>
-                </Button>
+                <LikeButton post={{ id, likesCount, likes }} user={context.user} />
+                <CommentButton postID={id} commentsCount={commentsCount} />
+                {  context.user && context.user.username === username && <DeleteButton postID={id} redirect={false} /> }
             </Card.Content>
         </Card>
     );

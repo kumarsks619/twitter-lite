@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, TextArea } from 'semantic-ui-react'
 import { useMutation } from '@apollo/client'
 
 import { useForm } from '../../../utils/Hooks/useForm'
@@ -13,21 +13,22 @@ function PostForm() {
     }, hoistCreatePost)
     const [errors, setErrors] = useState({})
 
-    const [ createPost ] = useMutation(CREATE_POST_QUERY, {
+    const [createPost] = useMutation(CREATE_POST_QUERY, {
         variables: inputValues,
-        update: (proxy, result) => {
+        update(proxy, result) {
             const cacheData = proxy.readQuery({
                 query: FETCH_POSTS_QUERY
             })
-            cacheData.getPosts = [ result.data.createPost, ...cacheData.getPosts ]
             proxy.writeQuery({
                 query: FETCH_POSTS_QUERY,
-                data: cacheData
+                data: {
+                    getPosts: [result.data.createPost, ...cacheData.getPosts]
+                }
             })
             inputValues.body = ""
         },
         onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors)
-    })
+    });
 
     function hoistCreatePost() {
         return createPost()
@@ -35,16 +36,18 @@ function PostForm() {
 
     return (
         <>
-            <Form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnSubmit} className="postForm__formWrapper">
                 <h2>Say Something!</h2>
-                <Form.Field>
-                    <Form.Input 
+                <Form.Field className="postForm__textAreaWrapper">
+                    <TextArea
+                        className="postForm__textArea" 
+                        rows={2} 
                         placeholder="Hi World!"
                         name="body"
                         value={inputValues.body}
                         onChange={handleOnChange}
                     />
-                    <Button type="submit" color="teal">Tweet</Button>
+                    <Button type="submit" color="teal" className="postForm__submitBtn">Tweet</Button>
                 </Form.Field>
             </Form>
             {

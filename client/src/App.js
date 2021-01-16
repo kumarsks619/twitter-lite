@@ -8,6 +8,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 import Header from './components/Header'
 import AuthRoute from './utils/AuthRoute'
+import SinglePost from './components/SinglePost'
 import './App.css'
 
 
@@ -20,6 +21,7 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <AuthRoute exact path="/register" component={Register} />
                 <AuthRoute exact path="/login" component={Login} />
+                <Route exact path="/posts/:postID" component={SinglePost} />
             </Container>
         </Router>
     )

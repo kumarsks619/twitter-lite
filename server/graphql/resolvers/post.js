@@ -44,7 +44,7 @@ module.exports = {
                 body,
                 user: authUser.id,
                 username: authUser.username,
-                createdAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString()
+                createdAt: new Date().toISOString()
             })
 
             const savedPost = await newPost.save()

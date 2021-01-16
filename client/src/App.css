@@ -1,11 +1,38 @@
-.home__heading {
-    display: block !important;
-    text-align: center;
-    font-size: 2rem;
-    margin-top: 10px;
-}
-
 .register {
     width: 400px;
     margin: 10px auto;
+}
+
+.home__heading {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.postForm__formWrapper h2 {
+    text-align: center;
+}
+
+.postForm__formWrapper {
+    width: 500px;
+    margin: 20px auto;
+}
+
+.postForm__textAreaWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.postForm__textArea {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.postForm__submitBtn {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.ui.teal.button:focus, .ui.teal.buttons .button:focus {
+    background-color: #00b5ad;
 }
