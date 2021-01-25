@@ -2,7 +2,7 @@ module.exports.validateRegisterInput = (
     username,
     email,
     password,
-    comfirmPassword
+    confirmPassword
 ) => {
     const errors = {}
 
@@ -19,7 +19,7 @@ module.exports.validateRegisterInput = (
 
     if (password === "")
         errors.password = "Password must not be empty"
-    else if (password !== comfirmPassword)
+    else if (password !== confirmPassword)
         errors.password = "Password must match"
 
     return {

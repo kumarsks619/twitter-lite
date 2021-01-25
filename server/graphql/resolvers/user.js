@@ -7,7 +7,7 @@ const User = require('../../models/User')
 const { validateRegisterInput, validateLoginInput } = require('../../utils/validators')
 
 
-const genrateToken = (user) => (
+const generateToken = (user) => (
     jwt.sign({
         id: user._id,
         email: user.email,
@@ -45,7 +45,7 @@ module.exports = {
 
             const result = await newUser.save()
 
-            const token = genrateToken(result)
+            const token = generateToken(result)
 
             return {
                 ...result._doc,
@@ -71,7 +71,7 @@ module.exports = {
                 throw new UserInputError('Wrong credentials', { errors })
             }
 
-            const token = genrateToken(foundUser)
+            const token = generateToken(foundUser)
 
             return {
                 ...foundUser._doc,

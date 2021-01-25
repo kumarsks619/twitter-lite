@@ -10,14 +10,14 @@ import CommentButton from './CommentButton'
 import MyPopup from '../../../utils/UtilComponents/MyPopup'
 
  
-function Post({ post: { id, username, body, createdAt, likesCount, likes, commentsCount }}) {
+function Post({ post: { id, username, body, createdAt, likesCount, likes, commentsCount, author }}) {
 
     const context = useContext(AuthContext)
     
     return (
         <Card fluid>
             <Card.Content as={Link} to={`/posts/${id}`}>
-                <MyPopup header={username} content={`Joined ${moment(createdAt).from()}`}>
+                <MyPopup header={author.email} content={`Joined ${moment(author.createdAt).from()}`}>
                     <Image
                         floated="right"
                         size="mini"

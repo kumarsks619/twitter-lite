@@ -6,6 +6,10 @@ query getPosts {
     getPosts {
         id
         username
+        author {
+            email
+            createdAt
+        }
         body
         createdAt
         likesCount

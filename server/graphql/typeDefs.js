@@ -33,6 +33,7 @@ module.exports = gql`
 
     type Post {
         id: ID!
+        author: User!
         username: String!
         body: String!
         createdAt: String!

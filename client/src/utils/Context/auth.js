@@ -17,7 +17,7 @@ if (localStorage.getItem("jwtToken")) {
 
 const AuthContext = createContext({
     user: null,
-    login: (userData) => {},
+    login: () => {},
     logout: () => {}
 })
 

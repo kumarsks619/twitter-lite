@@ -8,7 +8,7 @@ module.exports = {
     Query: {
         getPosts: async () => {
             try {
-                const foundPosts = await Post.find().sort({ createdAt: -1 })
+                const foundPosts = await Post.find().populate("author").sort({ createdAt: -1 })
                 return foundPosts
             } catch (err) {
                 throw new Error(err)
@@ -42,7 +42,7 @@ module.exports = {
 
             const newPost = new Post({
                 body,
-                user: authUser.id,
+                author: authUser.id,
                 username: authUser.username,
                 createdAt: new Date().toISOString()
             })
